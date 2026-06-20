@@ -272,6 +272,24 @@
         .kpi.acc-blue   { --accent: var(--blue); }
         .kpi.acc-red    { --accent: var(--red); }
 
+        .kpi.volume {
+            background: linear-gradient(140deg, rgba(245,158,11,.07) 0%, var(--card) 60%);
+            border-color: rgba(245,158,11,.20);
+        }
+
+        .kpi.volume .kpi-val {
+            font-size: 30px;
+            letter-spacing: -1px;
+            color: var(--gold-bright);
+        }
+
+        .kpi.volume.acc-green {
+            background: linear-gradient(140deg, rgba(16,185,129,.07) 0%, var(--card) 60%);
+            border-color: rgba(16,185,129,.20);
+        }
+
+        .kpi.volume.acc-green .kpi-val { color: var(--green); }
+
         .kpi-lbl {
             font-size: 9px;
             font-weight: 700;
@@ -557,8 +575,30 @@
     <!-- RIGHT PANEL -->
     <div class="right">
 
-        <!-- KPI Grid — 4 colunas -->
+        <!-- KPI Grid — 4 colunas, 3 linhas -->
         <div class="kpi-grid">
+            <!-- Linha 1: Volumes em destaque -->
+            <div class="kpi volume">
+                <p class="kpi-lbl">Leads Gerados</p>
+                <div class="kpi-val" id="vLeads">—</div>
+                <p class="kpi-sub">total de conversas iniciadas</p>
+            </div>
+            <div class="kpi volume">
+                <p class="kpi-lbl">Leads Qualificados</p>
+                <div class="kpi-val" id="vQualificados">—</div>
+                <p class="kpi-sub">com perfil de compra</p>
+            </div>
+            <div class="kpi volume">
+                <p class="kpi-lbl">Visitas Realizadas</p>
+                <div class="kpi-val" id="vVisitas">—</div>
+                <p class="kpi-sub">ao imóvel ou stand</p>
+            </div>
+            <div class="kpi volume acc-green">
+                <p class="kpi-lbl">Vendas Concluídas</p>
+                <div class="kpi-val" id="vVendas">—</div>
+                <p class="kpi-sub">contratos assinados</p>
+            </div>
+            <!-- Linha 2: Custos -->
             <div class="kpi">
                 <p class="kpi-lbl">Custo por Lead</p>
                 <div class="kpi-val" id="cpl">—</div>
@@ -681,6 +721,13 @@
         const VD = $v('vendas');
         const I  = $v('investido');
         const F  = $v('faturado');
+
+        // Volumes
+        const fmtNum = n => n > 0 ? n.toLocaleString('pt-BR') : '—';
+        document.getElementById('vLeads').textContent        = fmtNum(L);
+        document.getElementById('vQualificados').textContent = fmtNum(Q);
+        document.getElementById('vVisitas').textContent      = fmtNum(V);
+        document.getElementById('vVendas').textContent       = fmtNum(VD);
 
         // KPIs
         setKpi('cpl',  L  > 0 ? brl(I / L)  : '—');
